@@ -1,0 +1,27 @@
+{% extends "order/base.html" %}
+
+{% block page_title %}Active Orders{% endblock %}
+
+{% block content %}
+    <table id="order-status">
+        <caption>Active Orders</caption>
+        <tr>
+            <th>Time Elapsed</th>
+            <th>Description</th>
+            <th>Cost</th>
+            <th>Order Complete?</th>
+        </tr>
+        {% for order in orders %}
+        <tr id="order-{{order.id}}">
+            <td><span class="loading">Loading...</span></td>
+            <td>{{order}}</td>
+            <td>{{order.cost}}</td>
+            <td>
+                <form action="{% url complete_order order.id %}">
+                    <input type="submit" name="complete-order" value="Mark Complete" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

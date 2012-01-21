@@ -1,0 +1,40 @@
+{% extends "order/base.html" %}
+{% load uni_form_tags %}
+
+{% block page_title %}Order Online{% endblock %}
+
+{% block content %}
+    <div id="pizza-options" class="span-15">
+        {% uni_form form form.helper %}
+    </div>
+    <div id="order-details" class="span-9 last">
+        <div id="order-details-content">
+            <h1>Order Details</h1>
+            {% if order.pizzas.all.count > 0 %}
+            <ul>
+                {% for pizza in order.pizzas.all %}
+                <li>
+                    {{pizza}} - <span class="price">${{pizza.cost}}</span>
+                    <ul>
+                    {% if pizza.toppings.all.count > 0 %}
+                        {% for topping in pizza.toppings.all %}
+                        <li>{{topping}}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>(No toppings)</li>
+                    {% endif %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="order-footer">
+                Total: <span class="price">${{order.cost}}</span> |
+                <a href="{% url checkout %}">Checkout Now!</a>
+            </div>
+            {% else %}
+            There are no pizzas in your order.  If you're hungry, add some!
+            {% endif %}
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

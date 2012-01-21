@@ -1,0 +1,40 @@
+{% extends "order/base.html" %}
+{% load uni_form_tags %}
+
+{% block page_title %}Checkout{% endblock %}
+
+{% block content %}
+    <div id="checkout-details">
+        Please confirm your delivery.
+        {% if order.pizzas.all.count > 0 %}
+        <ul>
+            {% for pizza in order.pizzas.all %}
+            <li>
+                {{pizza}} - <span class="price">${{pizza.cost}}</span>
+                {% if pizza.toppings.all.count > 0 %}
+                <ul>
+                    {% for topping in pizza.toppings.all %}
+                    <li>
+                        {{topping}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <div>
+            Total: <span class="price">${{order.cost}}</span>
+        </div>
+        {% else %}
+        There are no pizzas in your order.  If you're hungry, add some!
+        {% endif %}
+
+    </div>
+    <form id="checkout-form" action="." method="POST" class="uniForm">
+        {% csrf_token %}
+        {{ form|as_uni_form }}
+        <input type="submit" name="checkout-confirm" value="Confirm Delivery" />
+    </form>
+    <div class="clearfix"></div>
+{% endblock %}

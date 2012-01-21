@@ -1,0 +1,25 @@
+{% extends "order/base.html" %}
+
+{% block page_title %}Completed Orders{% endblock %}
+
+{% block content %}
+    <table id="order-status">
+        <caption>Completed Orders</caption>
+        <tr>
+            <th>Time to Fill Order</th>
+            <th>Order Placed</th>
+            <th>Customer</th>
+            <th>Cost</th>
+            <th></th>
+        </tr>
+        {% for order in object_list %}
+        <tr id="order-{{order.id}}">
+            <td>{{order.time_to_complete}}</td>
+            <td>{{order.order_placed}}</td>
+            <td>{{order.user}}</td>
+            <td>{{order.cost}}</td>
+            <td><a href="{% url order_details order.id %}">Details</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

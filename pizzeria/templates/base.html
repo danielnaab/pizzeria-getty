@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Pizzeria Getty - {% block page_title %}Welcome{% endblock %}</title>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}uni_form/uni-form.jquery.js"></script>
+
+        <link rel="stylesheet" href="{{STATIC_URL}}css/blueprint/screen.css" type="text/css" media="screen, projection" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/blueprint/print.css" type="text/css" media="print" />
+        <!--[if lt IE 8]><link rel="stylesheet" href="{{STATIC_URL}}css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+        <link rel="stylesheet" href="{{STATIC_URL}}uni_form/uni-form.css" type="text/css" />
+        <link rel="stylesheet" href="{{STATIC_URL}}uni_form/default.uni-form.css" type="text/css" />
+        <link type="text/css" href="{{STATIC_URL}}css/base.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="body" class="container">
+            <header class="span-24 last">
+                {% block header %}
+                <div class="span-5">
+                    <a href="{% url home %}"><img id="logo" alt="slice of pizza" src="{{STATIC_URL}}images/pizza-slice.svg" /></a>
+                </div>
+                <div class="span-19 last">
+                    <h1 class="alt">Pizzeria Getty</h1>
+                    <div id="address" class="span-13">
+                        744 Williamson Street<br/>
+                        Madison, WI  53703
+                    </div>
+                    <div id="employee-nav" class="span-3">
+                    {% if user.is_superuser %}
+                        Employee Tools<br/>
+                        <a href="{% url active_orders %}">Active Orders</a><br/>
+                        <a href="{% url completed_orders %}">Completed Orders</a>
+                    {% endif %}
+                        &nbsp;
+                    </div>
+                    <div id="login-info" class="span-3 last">
+                    {% if user.is_authenticated %}
+                        Welcome, {{ user }}!<br/>
+                        <a href="{% url order_status %}">My Order Status</a><br/>
+                    {% endif %}
+                    </div>
+                </div>
+                {% endblock %}
+            </header>
+
+            <div id="content">
+                {% if messages %}
+                <ul class="messages span-24 last">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <footer class="span-24 last">
+            {% block footer %}
+                Copyright &copy; {% now "Y" %} <a href="http://www.nattynerd.com/">Daniel Naab</a> |
+                {% if user.is_authenticated %}
+                    <a href="{% url auth_logout %}">Log out</a>
+                {% else %}
+                    <a href="{% url auth_login %}">Log in</a> |
+                    <a href="{% url registration_register %}">Create Account</a>
+                {% endif %}
+            {% endblock %}
+            </footer>
+        </div>
+    </body>
+</html>

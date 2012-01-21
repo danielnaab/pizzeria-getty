@@ -1,0 +1,25 @@
+{% extends "order/base.html" %}
+
+{% block page_title %}Order Status{% endblock %}
+
+{% block content %}
+    <table id="order-status">
+        <caption>Order Status</caption>
+        <tr>
+            <th>Time Elapsed</th>
+            <th>Description</th>
+            <th>Cost</th>
+            <th>Order Complete?</th>
+            <th></th>
+        </tr>
+        {% for order in orders %}
+        <tr id="order-{{order.id}}">
+            <td><span class="loading">Loading...</span></td>
+            <td>{{order}}</td>
+            <td>{{order.cost}}</td>
+            <td>{{order.time_closed|yesno:'Yes,No'}}</td>
+            <td><a href="{% url order_details order.id %}">Details</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

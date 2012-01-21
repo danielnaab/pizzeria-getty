@@ -1,0 +1,119 @@
+body {
+    font-size: 16px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    padding-left: 1em;
+}
+
+h1 {
+    border-bottom: 1px solid #BBBBBB;
+    margin-bottom: .25em;
+}
+
+a {
+    color: #EE4444;
+}
+
+a:hover {
+    background-color: #EE4444;
+    color: #DDDDDD;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1;
+}
+
+.uniForm .ctrlHolder{
+    /* remove uni-form's border */
+    border-bottom: none;
+}
+
+#content {
+    min-height: 600px;
+}
+
+#body {
+    background-color: #DDDDDD;
+    padding: .5em;
+}
+
+#logo {
+    width: 200px;
+    float: left;
+}
+
+#pizza-options {
+}
+
+#order-details-content {
+    background-color: #EEEEEE;
+    padding: 5px;
+}
+#order-details h1 {
+    font-size: 120%;
+    text-align: center;
+    margin-top: .5em;
+}
+#order-details .order-footer {
+    text-align: center;
+    border-top: solid 1px #BBBBBB;
+}
+
+.price {
+    color: green;
+    font-style: italic;
+}
+
+#login-info, #employee-nav {
+    text-align: right;
+    font-size: 80%;
+}
+
+#address {
+    font-size: 80%;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#special-instructions {
+    border: 1px solid white;
+}
+#special-instructions * {
+    display: inline;
+}
+
+#registration-content {
+    margin: 1.5em;
+}
+
+#registration-content h1 {
+    font-size: 160%;
+}
+
+header {
+    border-bottom: solid 1px #BBBBBB;
+}
+
+footer {
+    font-size: 80%;
+    color: #555555;
+    border-top: solid 1px #BBBBBB;
+    text-align: center;
+}
+
+.loading {
+    color: #EE4444;
+}
