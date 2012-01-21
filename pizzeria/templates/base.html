@@ -6,6 +6,7 @@
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="{{STATIC_URL}}uni_form/uni-form.jquery.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/pizzeria.jquery.js"></script>
 
         <link rel="stylesheet" href="{{STATIC_URL}}css/blueprint/screen.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="{{STATIC_URL}}css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
@@ -14,6 +15,9 @@
         <link rel="stylesheet" href="{{STATIC_URL}}uni_form/uni-form.css" type="text/css" />
         <link rel="stylesheet" href="{{STATIC_URL}}uni_form/default.uni-form.css" type="text/css" />
         <link type="text/css" href="{{STATIC_URL}}css/base.css" rel="stylesheet" />
+
+        {% block extra_head %}
+        {% endblock %}
     </head>
     <body>
         <div id="body" class="container">
@@ -33,6 +37,7 @@
                         Employee Tools<br/>
                         <a href="{% url active_orders %}">Active Orders</a><br/>
                         <a href="{% url completed_orders %}">Completed Orders</a>
+                        <a href="/admin/order/">Modify Menu</a>
                     {% endif %}
                         &nbsp;
                     </div>
@@ -70,5 +75,7 @@
             {% endblock %}
             </footer>
         </div>
+        {% block extra_body %}
+        {% endblock %}
     </body>
 </html>

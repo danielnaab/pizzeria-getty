@@ -12,7 +12,7 @@
             <th>Cost</th>
             <th></th>
         </tr>
-        {% for order in object_list %}
+        {% for order in orders %}
         <tr id="order-{{order.id}}">
             <td>{{order.time_to_complete}}</td>
             <td>{{order.order_placed}}</td>

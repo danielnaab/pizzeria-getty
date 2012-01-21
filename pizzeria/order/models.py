@@ -66,9 +66,6 @@ class Order(TimeStampedModel):
         """Calculates the time used to close this order as a string."""
         if self.order_placed and self.time_closed:
             total_seconds = (self.time_closed - self.order_placed).seconds
-            hours, remainder = divmod(total_seconds, 3600)
-            minutes, seconds = divmod(remainder, 60)
-            return '%02d:%02d:%02d' % (hours, minutes, seconds)
 
 class Pizza(TimeStampedModel):
     order = models.ForeignKey(Order, editable=False, related_name='pizzas')

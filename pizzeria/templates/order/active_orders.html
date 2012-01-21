@@ -13,7 +13,7 @@
         </tr>
         {% for order in orders %}
         <tr id="order-{{order.id}}">
-            <td><span class="loading">Loading...</span></td>
+            <td class="elapsed"><span class="loading">Loading...</span></td>
             <td>{{order}}</td>
             <td>{{order.cost}}</td>
             <td>

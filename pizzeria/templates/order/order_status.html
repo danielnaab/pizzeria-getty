@@ -14,12 +14,35 @@
         </tr>
         {% for order in orders %}
         <tr id="order-{{order.id}}">
-            <td><span class="loading">Loading...</span></td>
+            <td class="elapsed"><span class="loading">Loading...</span></td>
             <td>{{order}}</td>
             <td>{{order.cost}}</td>
-            <td>{{order.time_closed|yesno:'Yes,No'}}</td>
+            <td class="is_complete"><span class="red">Loading...</span></td>
             <td><a href="{% url order_details order.id %}">Details</a></td>
         </tr>
         {% endfor %}
     </table>
+    {% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block extra_body %}
+    {{ block.super }}
+
+    <script>
+        $("tr[id^=order-]").pizzeriaOrderStatus();
+    </script>
 {% endblock %}

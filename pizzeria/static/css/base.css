@@ -72,9 +72,13 @@ a:hover {
     border-top: solid 1px #BBBBBB;
 }
 
-.price {
+.price, .green {
     color: green;
     font-style: italic;
+}
+
+.red {
+    color: #EE4444;
 }
 
 #login-info, #employee-nav {

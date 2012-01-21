@@ -17,7 +17,8 @@ import models
 class CompletedOrdersListView(generic.ListView):
     template_name = 'order/completed_orders.html'
     model = models.Order
-    paginate_by = 15
+    paginate_by = 10
+    context_object_name = 'orders'
 
     def get_queryset(self):
         queryset = super(CompletedOrdersListView, self).get_queryset()
@@ -27,6 +28,16 @@ class CompletedOrdersListView(generic.ListView):
         if not self.request.user.is_superuser:
             raise PermissionDenied
         return super(CompletedOrdersListView, self).render_to_response(context)
+
+class OrderStatusListView(generic.ListView):
+    template_name = 'order/order_status.html'
+    model = models.Order
+    paginate_by = 10
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        queryset = super(OrderStatusListView, self).get_queryset()
+        return queryset.filter(user=self.request.user)
 
 @login_required
 def order_details(self, request, order_id,
@@ -56,10 +67,10 @@ def api_order_info(request):
 
     orders = models.Order.objects.filter(
         id__in=id_list).exclude(order_placed=None)
-    data = [{
+    data = {'order-%s' % order.id: {
         'seconds_elapsed': (datetime.now() - order.order_placed).seconds,
-        'time_closed': order.time_closed
-    } for order in orders]
+        'time_closed': str(order.time_closed)
+    } for order in orders}
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
 @login_required
@@ -84,13 +95,6 @@ def active_orders(request, template_name='order/active_orders.html'):
     if not request.user.is_superuser:
         raise PermissionDenied
 
-    return render_to_response(template_name, RequestContext(request, {
-        'orders': orders
-    }))
-
-@login_required
-def order_status(request, template_name='order/order_status.html'):
-    orders = models.Order.objects.filter(user=request.user)
     return render_to_response(template_name, RequestContext(request, {
         'orders': orders
     }))
