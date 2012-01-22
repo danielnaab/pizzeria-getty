@@ -122,3 +122,8 @@ footer {
 .loading {
     color: #EE4444;
 }
+
+/*#div_id_toppings ul, #div_id_toppings ul > *, #div_id_toppings ul > li > * {
+    display: inline;
+    width: 100%;
+}*/

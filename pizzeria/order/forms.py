@@ -6,6 +6,12 @@ from uni_form import layout
 import models
 
 class PizzaForm(forms.ModelForm):
+    # Make toppings a set of checkboxes:
+    #toppings = forms.ModelMultipleChoiceField(
+    #    queryset=models.Topping.objects.all(),
+    #    widget=forms.CheckboxSelectMultiple
+    #)
+
     class Meta:
         model = models.Pizza
 
@@ -35,6 +41,7 @@ class PizzaForm(forms.ModelForm):
                     css_id='special-instructions',
                 ),
                 'special_instructions',
+                'entries'
             ),
             layout.ButtonHolder(
                 layout.Submit('add-pizza', 'Add To Order'),
