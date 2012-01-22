@@ -6,12 +6,12 @@ dependencies are in requirements.txt and pip installable.  The default project
 settings use the sqlite3 database.
 
 It is recommended to install all dependencies into a virtual environment.
-Inside the virtual environment, install the dependencies:
+Irregardless, install the dependencies with:
 
-    cd pizzeria
+    cd pizzeria-getty/pizzeria
     pip install -r requirements.txt
 
-To create a database and initialize it with data:
+To create a database and initialize it with test data:
 
     ./manage.py syncdb
     ./manage.py init-test-data
