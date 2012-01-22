@@ -5,17 +5,21 @@
 {% block content %}
     <table id="order-status">
         <caption>Active Orders</caption>
-        <tr>
-            <th>Time Elapsed</th>
-            <th>Description</th>
-            <th>Cost</th>
-            <th>Order Complete?</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Time Elapsed</th>
+                <th>Description</th>
+                <th>Cost</th>
+                <th>Details</th>
+                <th>Order Completed</th>
+            </tr>
+        </thead>
         {% for order in orders %}
         <tr id="order-{{order.id}}">
             <td class="elapsed"><span class="loading">Loading...</span></td>
             <td>{{order}}</td>
             <td>{{order.cost}}</td>
+            <td><a href="{% url order_details order.id %}">Details</a></td>
             <td>
                 <form action="{% url complete_order order.id %}">
                     <input type="submit" name="complete-order" value="Mark Complete" />

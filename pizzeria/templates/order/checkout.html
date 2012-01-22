@@ -34,7 +34,7 @@
     <form id="checkout-form" action="." method="POST" class="uniForm">
         {% csrf_token %}
         {{ form|as_uni_form }}
-        <input type="submit" name="checkout-confirm" value="Confirm Delivery" />
+        <input type="submit" name="checkout-confirm" value="Confirm Pickup" />
     </form>
     <div class="clearfix"></div>
 {% endblock %}

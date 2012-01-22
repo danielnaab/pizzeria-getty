@@ -45,7 +45,7 @@ class Order(TimeStampedModel):
     time_closed = models.DateTimeField(null=True)
 
     class Meta:
-        ordering = ('-order_placed',)
+        ordering = ('time_closed', '-order_placed',)
 
     def __unicode__(self):
         if self.user:
@@ -65,7 +65,9 @@ class Order(TimeStampedModel):
     def time_to_complete(self):
         """Calculates the time used to close this order as a string."""
         if self.order_placed and self.time_closed:
-            total_seconds = (self.time_closed - self.order_placed).seconds
+            return (self.time_closed - self.order_placed).seconds
+        else:
+            return ''
 
 class Pizza(TimeStampedModel):
     order = models.ForeignKey(Order, editable=False, related_name='pizzas')

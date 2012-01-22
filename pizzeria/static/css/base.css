@@ -53,6 +53,7 @@ a:hover {
 #logo {
     width: 200px;
     float: left;
+    margin: 5px;
 }
 
 #pizza-options {

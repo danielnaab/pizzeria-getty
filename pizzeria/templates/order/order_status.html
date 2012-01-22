@@ -5,13 +5,15 @@
 {% block content %}
     <table id="order-status">
         <caption>Order Status</caption>
-        <tr>
-            <th>Time Elapsed</th>
-            <th>Description</th>
-            <th>Cost</th>
-            <th>Order Complete?</th>
-            <th></th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Time Elapsed</th>
+                <th>Description</th>
+                <th>Cost</th>
+                <th>Order Completed</th>
+                <th></th>
+            </tr>
+        </thead>
         {% for order in orders %}
         <tr id="order-{{order.id}}">
             <td class="elapsed"><span class="loading">Loading...</span></td>

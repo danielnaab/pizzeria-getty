@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -39,7 +38,6 @@ class OrderStatusListView(generic.ListView):
         queryset = super(OrderStatusListView, self).get_queryset()
         return queryset.filter(user=self.request.user)
 
-@login_required
 def order_details(self, request, order_id,
         template_name='order/order_details.html'):
     order = get_object_or_404(models.Order, pk=order_id)
@@ -50,7 +48,6 @@ def order_details(self, request, order_id,
         'order': order
     }))
 
-@login_required
 def api_order_info(request):
     """
     Returns JSON list of orders for passed-in order ids, if they exist and have
@@ -67,13 +64,18 @@ def api_order_info(request):
 
     orders = models.Order.objects.filter(
         id__in=id_list).exclude(order_placed=None)
-    data = {'order-%s' % order.id: {
-        'seconds_elapsed': (datetime.now() - order.order_placed).seconds,
-        'time_closed': str(order.time_closed)
-    } for order in orders}
+    data = {}
+    for order in orders:
+        if order.time_closed:
+            time_closed = order.time_closed.strftime('%m/%d/%Y %I:%M%p')
+        else:
+            time_closed = False
+        data['order-%s' % order.id] = {
+            'seconds_elapsed': (datetime.now() - order.order_placed).seconds,
+            'time_closed': time_closed
+        }
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
-@login_required
 def complete_order(request, order_id):
     if not request.user.is_superuser:
         raise PermissionDenied
@@ -86,9 +88,8 @@ def complete_order(request, order_id):
     messages.success(request, _('Order `%s` marked complete.' % order))
 
     # Redirect back to same page.
-    return HttpResponseRedirect(reverse(active_orders))
+    return HttpResponseRedirect(reverse('active_orders'))
 
-@login_required
 def active_orders(request, template_name='order/active_orders.html'):
     orders = models.Order.objects.filter(
         time_closed=None).exclude(order_placed=None)
@@ -99,25 +100,25 @@ def active_orders(request, template_name='order/active_orders.html'):
         'orders': orders
     }))
 
-@login_required
 def order_details(request, order_id, template_name='order/order_details.html'):
     order = get_object_or_404(models.Order, pk=order_id)
     return render_to_response(template_name, RequestContext(request, {
         'order': order
     }))
 
-@login_required
 def checkout(request, template_name='order/checkout.html'):
     order = request.session.get('order', None)
+
+    # If the order is empty, redirect to the home page.
     if not order or order.cost == 0:
-        raise Http404, _('Cannot complete checkout on empty order!')
+        return HttpResponseRedirect(reverse('home'))
 
     if request.POST:
         order.user = request.user
         order.order_placed = datetime.now()
         order.save()
         request.session['order'] = None
-        return HttpResponseRedirect(reverse(order_status))
+        return HttpResponseRedirect(reverse('order_status'))
     else:
         return render_to_response(template_name,
             RequestContext(request, {
