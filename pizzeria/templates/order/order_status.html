@@ -18,7 +18,7 @@
         <tr id="order-{{order.id}}">
             <td class="elapsed"><span class="loading">Loading...</span></td>
             <td>{{order}}</td>
-            <td>{{order.cost}}</td>
+            <td><span class="price">${{order.cost}}</span></td>
             <td class="is_complete"><span class="red">Loading...</span></td>
             <td><a href="{% url order_details order.id %}">Details</a></td>
         </tr>

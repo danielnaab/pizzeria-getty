@@ -8,17 +8,19 @@
         <thead>
             <tr>
                 <th>Time Elapsed</th>
+                <th>Order Completed</th>
                 <th>Description</th>
                 <th>Cost</th>
-                <th>Details</th>
-                <th>Order Completed</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         {% for order in orders %}
         <tr id="order-{{order.id}}">
             <td class="elapsed"><span class="loading">Loading...</span></td>
+            <td class="is_complete"><span class="loading">Loading...</span></td>
             <td>{{order}}</td>
-            <td>{{order.cost}}</td>
+            <td><span class="price">${{order.cost}}</span></td>
             <td><a href="{% url order_details order.id %}">Details</a></td>
             <td>
                 <form action="{% url complete_order order.id %}">
@@ -28,4 +30,12 @@
         </tr>
         {% endfor %}
     </table>
+{% endblock %}
+
+{% block extra_body %}
+    {{ block.super }}
+
+    <script>
+        $("tr[id^=order-]").pizzeriaOrderStatus();
+    </script>
 {% endblock %}
