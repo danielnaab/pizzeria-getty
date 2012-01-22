@@ -62,7 +62,7 @@ String.prototype.toHHMMSS = function () {
                 // indicator.
                 var el = $(this).find('.elapsed');
                 var seconds = el.data('seconds');
-                if (seconds) {
+                if (seconds >= 0) {
                     var time_closed = $(this).find('.is_complete');
                     if (time_closed.data('time_complete')) {
                         el.html(
