@@ -19,7 +19,7 @@ To create a database and initialize it with data:
 The `syncdb` invocation will request the creation of an administrative user.
 For the sake of this project, admin users are considered "employees", and
 non-admin users are "customers."  Therefore, create an admin user with your
-preferred username/password during this step.
+preferred username/password during this step to test the employee features.
 
 `init-test-data` will populate the database with some configurable data,
 specifically pizza sizes and toppings.
