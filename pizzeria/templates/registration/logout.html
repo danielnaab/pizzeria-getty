@@ -1,0 +1,9 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+
+{% block registration %}
+<h1>Logged out.</h1>
+<div>
+    You are now logged out.  Click <a href="{% url auth_login %}">here</a> to log in again.
+</div>
+{% endblock %}
