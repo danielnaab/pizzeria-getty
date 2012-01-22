@@ -19,7 +19,7 @@
             <td>{{order.time_to_complete}}</td>
             <td>{{order.order_placed}}</td>
             <td>{{order.user}}</td>
-            <td>{{order.cost}}</td>
+            <td><span class="price">${{order.cost}}</span></td>
             <td><a href="{% url order_details order.id %}">Details</a></td>
         </tr>
         {% endfor %}

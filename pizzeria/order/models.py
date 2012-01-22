@@ -63,9 +63,13 @@ class Order(TimeStampedModel):
 
     @property
     def time_to_complete(self):
-        """Calculates the time used to close this order as a string."""
+        """
+        Returns the time used to close this order as a string in form HH:MM:SS,
+        or the empty string.
+        """
         if self.order_placed and self.time_closed:
-            return (self.time_closed - self.order_placed).seconds
+            return ':'.join(['%02d' % float(part) for part in
+                str(self.time_closed - self.order_placed).split(':')])
         else:
             return ''
 
