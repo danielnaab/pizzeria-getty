@@ -4,11 +4,11 @@
 {% block page_title %}Order Online{% endblock %}
 
 {% block content %}
-    <div id="pizza-options" class="span-15">
+    <div id="pizza-options" class="span-15 shadowed">
         {% uni_form form form.helper %}
     </div>
     <div id="order-details" class="span-9 last">
-        <div id="order-details-content">
+        <div id="order-details-content" class="shadowed accent">
             <h1>Order Details</h1>
             {% if order.pizzas.all.count > 0 %}
             <ul>

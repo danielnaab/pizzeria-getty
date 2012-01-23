@@ -48,6 +48,11 @@ a:hover {
 #body {
     background-color: #DDDDDD;
     padding: .5em;
+    -moz-box-shadow: 5px 5px 5px #888;
+    -webkit-box-shadow: 5px 5px 5px #888;
+    box-shadow: 5px 5px 5px #888;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
 }
 
 #logo {
@@ -60,7 +65,6 @@ a:hover {
 }
 
 #order-details-content {
-    background-color: #EEEEEE;
     padding: 5px;
 }
 #order-details h1 {
@@ -115,15 +119,36 @@ header {
 footer {
     font-size: 80%;
     color: #555555;
-    border-top: solid 1px #BBBBBB;
     text-align: center;
+    margin-top: .5em;
 }
 
 .loading {
     color: #EE4444;
 }
 
+.accent {
+    background-color: #EEEEEE;
+    margin-bottom: 4px;
+}
+
+.shadowed {
+    -moz-box-shadow: 2px 2px 2px #888;
+    -webkit-box-shadow: 2px 2px 2px #888;
+    box-shadow: 2px 2px 2px #888;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
 /*#div_id_toppings ul, #div_id_toppings ul > *, #div_id_toppings ul > li > * {
     display: inline;
     width: 100%;
 }*/
+
+.title-header {
+    text-shadow: 0px 0px 4px #000;
+}
+
+.alt {
+    color: #990000;
+}

@@ -5,11 +5,11 @@
 
 {% block content %}
     <div id="checkout-details">
-        Please confirm your pickup order.
+        <div class="alt">Please confirm your order for pickup.</div>
         {% if order.pizzas.all.count > 0 %}
         <ul>
             {% for pizza in order.pizzas.all %}
-            <li>
+            <li class="shadowed accent">
                 {{pizza}} - <span class="price">${{pizza.cost}}</span>
                 {% if pizza.toppings.all.count > 0 %}
                 <ul>
