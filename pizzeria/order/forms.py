@@ -63,7 +63,7 @@ class OrderForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = layout.Layout(
             layout.MultiField(
-                '<span class="alt">Delivery Details</a>',
+                '<span class="alt">Delivery Details</span>',
                 'address_1',
                 'address_2',
                 'city',

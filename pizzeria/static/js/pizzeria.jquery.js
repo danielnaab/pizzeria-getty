@@ -79,8 +79,6 @@ String.prototype.toHHMMSS = function () {
                             '<span class="red">No</span>');
                     }
                 }
-
-                // Update order completion status.
             });
         };
 
