@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.localflavor.us.forms import USZipCodeField
 
 from uni_form.helper import FormHelper
 from uni_form import layout
@@ -49,3 +50,31 @@ class PizzaForm(forms.ModelForm):
             )
         )
         return super(PizzaForm, self).__init__(*args, **kwargs)
+
+class OrderForm(forms.ModelForm):
+    zipcode = USZipCodeField()
+
+    class Meta:
+        model = models.Order
+        exclude = (
+            'user', 'order_placed', 'time_closed')
+
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.layout = layout.Layout(
+            layout.MultiField(
+                '<span class="alt">Delivery Details</a>',
+                'address_1',
+                'address_2',
+                'city',
+                'state',
+                'zipcode',
+                'phone_number',
+                'delivery_instructions',
+            ),
+            layout.ButtonHolder(
+                layout.Submit('confirm-order', 'Confirm Order'),
+                layout.HTML("<div>You're one click closer to a tasty pie!</div>")
+            )
+        )
+        return super(OrderForm, self).__init__(*args, **kwargs)

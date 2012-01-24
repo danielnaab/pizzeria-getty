@@ -4,8 +4,8 @@
 {% block page_title %}Checkout{% endblock %}
 
 {% block content %}
-    <div id="checkout-details">
-        <div class="alt">Please confirm your order for pickup.</div>
+    <div id="checkout-details" class="span-12">
+        <div class="alt">Please confirm your order.</div>
         {% if order.pizzas.all.count > 0 %}
         <ul>
             {% for pizza in order.pizzas.all %}
@@ -31,10 +31,7 @@
         {% endif %}
 
     </div>
-    <form id="checkout-form" action="." method="POST" class="uniForm">
-        {% csrf_token %}
-        {{ form|as_uni_form }}
-        <input type="submit" name="checkout-confirm" value="Confirm Pickup" />
-    </form>
-    <div class="clearfix"></div>
+    <div id="checkout-form" class="shadowed accent span-12 last">
+        {% uni_form form form.helper %}
+    </div>
 {% endblock %}

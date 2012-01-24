@@ -102,8 +102,9 @@ a:hover {
 #special-instructions {
     border: 1px solid white;
 }
-#special-instructions * {
-    display: inline;
+#special-instructions *, #all-inline * {
+    float: left;
+    clear: none;
 }
 
 #registration-content {
@@ -153,4 +154,13 @@ footer {
 
 .alt {
     color: #990000;
+}
+
+#checkout-form .ctrlHolder {
+    padding: .25em;
+    padding-left: 1em;
+}
+
+#order-location {
+    padding: .5em;
 }

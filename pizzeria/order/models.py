@@ -1,18 +1,9 @@
 from django.contrib.auth.models import User
-from django.contrib.localflavor.us.models import (
-    PhoneNumberField, USPostalCodeField, USStateField)
+from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 from django.db import models
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.models import TimeStampedModel
-
-class CustomerProfile(models.Model):
-    address_1 = models.CharField(max_length=128)
-    address_2 = models.CharField(max_length=128)
-    city = models.CharField(max_length=64)
-    state = USStateField()
-    zipcode = USPostalCodeField()
-    phone_number = PhoneNumberField()
 
 class Size(models.Model):
     label = models.CharField(max_length=64)
@@ -40,9 +31,16 @@ class Topping(models.Model):
 
 class Order(TimeStampedModel):
     user = models.ForeignKey(User, null=True)
-    delivery_instructions = models.TextField(null=True)
+    delivery_instructions = models.TextField(null=True, blank=True)
     order_placed = models.DateTimeField(null=True)
     time_closed = models.DateTimeField(null=True)
+
+    address_1 = models.CharField(max_length=128)
+    address_2 = models.CharField(max_length=128, null=True, blank=True)
+    city = models.CharField(max_length=64)
+    state = USStateField()
+    zipcode = models.CharField(max_length=10)
+    phone_number = PhoneNumberField()
 
     class Meta:
         ordering = ('time_closed', '-order_placed',)

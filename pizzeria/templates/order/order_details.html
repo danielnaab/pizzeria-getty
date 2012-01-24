@@ -5,39 +5,52 @@
 {% block content %}
     <div id="order-details">
         <h1>Order Details</h1>
-        {% if order.pizzas.all.count > 0 %}
-        <ul>
-            {% for pizza in order.pizzas.all %}
-            <li>
-                <strong>{{pizza}}</strong> - <span class="price">${{pizza.cost}}</span>
-                <ul>
-                {% if pizza.toppings.all.count > 0 %}
-                    {% for topping in pizza.toppings.all %}
-                    <li>{{topping}}</li>
-                    {% endfor %}
-                {% else %}
-                    <li>(No toppings)</li>
-                {% endif %}
-                </ul>
-                <ul>
-                    <div>Special Instructions</div>
-                    <li>Do not cut: {{pizza.do_not_cut|yesno|title}}</li>
-                    <li>Heavy sauce: {{pizza.heavy_sauce|yesno|title}}</li>
-                    <li>Lite bake: {{pizza.lite_bake|yesno|title}}</li>
-                    <li>Lite cheese: {{pizza.lite_cheese|yesno|title}}</li>
-                    <li>Lite sauce: {{pizza.lite_sauce|yesno|title}}</li>
-                    <li>No sauce: {{pizza.no_sauce|yesno|title}}</li>
-                    <li>Well done: {{pizza.well_done|yesno|title}}</li>
-                </ul>
-                {% if pizza.special_instructions %}
-                    <p>{{pizza.special_instructions}}</p>
-                {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-        <div class="order-footer">
-            Total: <span class="price">${{order.cost}}</span>
+        <div class="span-12">
+            {% if order.pizzas.all.count > 0 %}
+            <ul>
+                {% for pizza in order.pizzas.all %}
+                <li>
+                    <strong>{{pizza}}</strong> - <span class="price">${{pizza.cost}}</span>
+                    <ul>
+                    {% if pizza.toppings.all.count > 0 %}
+                        {% for topping in pizza.toppings.all %}
+                        <li>{{topping}}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>(No toppings)</li>
+                    {% endif %}
+                    </ul>
+                    <ul>
+                        <div>Special Instructions</div>
+                        <li>Do not cut: {{pizza.do_not_cut|yesno|title}}</li>
+                        <li>Heavy sauce: {{pizza.heavy_sauce|yesno|title}}</li>
+                        <li>Lite bake: {{pizza.lite_bake|yesno|title}}</li>
+                        <li>Lite cheese: {{pizza.lite_cheese|yesno|title}}</li>
+                        <li>Lite sauce: {{pizza.lite_sauce|yesno|title}}</li>
+                        <li>No sauce: {{pizza.no_sauce|yesno|title}}</li>
+                        <li>Well done: {{pizza.well_done|yesno|title}}</li>
+                    </ul>
+                    {% if pizza.special_instructions %}
+                        <p>{{pizza.special_instructions}}</p>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="order-footer">
+                Total: <span class="price">${{order.cost}}</span>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
+        <div class="span-12 last">
+            <div id="order-location" class="shadowed accent">
+                <p>
+                    {{order.phone_number}}<br/>
+                    {{order.address_1}}{% if order.address_2 %}<br/>{% endif %}
+                    {{order.address_2}}<br/>
+                    {{order.city}}, {{order.state}}  {{order.zipcode}}
+                </p>
+                <p>{{order.delivery_instructions}}</p>
+            </div>
+        </div>
     </div>
 {% endblock %}

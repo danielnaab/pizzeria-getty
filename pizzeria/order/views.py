@@ -113,7 +113,23 @@ def checkout(request, template_name='order/checkout.html'):
     if not order or order.cost == 0:
         return HttpResponseRedirect(reverse('home'))
 
+    # Init order with address from last order from this user, if it exists.
+    orders = models.Order.objects.filter(user=request.user).order_by('-pk')[:1]
+    if len(orders) == 1:
+        order.delivery_instructions = orders[0].delivery_instructions
+        order.address_1 = orders[0].address_1
+        order.address_2 = orders[0].address_2
+        order.city = orders[0].city
+        order.state = orders[0].state
+        order.zipcode = orders[0].zipcode
+        order.phone_number = orders[0].phone_number
+
     if request.POST:
+        form = forms.OrderForm(request.POST, instance=order)
+    else:
+        form = forms.OrderForm(instance=order)
+
+    if form.is_valid():
         order.user = request.user
         order.order_placed = datetime.now()
         order.save()
@@ -122,7 +138,8 @@ def checkout(request, template_name='order/checkout.html'):
     else:
         return render_to_response(template_name,
             RequestContext(request, {
-                'order': order
+                'order': order,
+                'form': form
             })
         )
 
